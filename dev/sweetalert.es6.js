@@ -155,6 +155,12 @@ export default sweetAlert = swal = function() {
   var onKeyEvent = (e) => handleKeyDown(e, params, modal);
   window.onkeydown = onKeyEvent;
 
+  // Handle keyup callback if it has been set 
+  if ( params.handleKeyUp ) {
+    var onKeyUpEvent = (e) => params.handleKeyUp(e, params, modal);
+    window.onkeyup = onKeyUpEvent;
+  }
+
   window.onfocus = function () {
     // When the user has focused away and focused back from the whole window.
     setTimeout(function () {
