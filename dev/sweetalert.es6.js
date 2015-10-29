@@ -34,7 +34,7 @@ import {
   sweetAlertInitialize,
   getModal,
   getOverlay,
-  getInput,
+  getInputs,
   setFocusStyle,
   openModal,
   resetInput,

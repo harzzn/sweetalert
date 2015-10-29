@@ -17,11 +17,9 @@ var defaultParams = {
   html: false,
   animation: true,
   allowEscapeKey: true,
-  inputType: 'text',
-  inputPlaceholder: '',
-  inputValue: '',
   showLoaderOnConfirm: false,
-  handleKeyUp: null
+  handleKeyUp: null,
+  inputs: null
 };
 
 export default defaultParams;

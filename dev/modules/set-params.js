@@ -6,7 +6,7 @@ import {
 
 import {
   getModal,
-  getInput,
+  getInputs,
   setFocusStyle
 } from './handle-swal-dom';
 
@@ -81,7 +81,7 @@ var setParameters = function(params) {
       show($icon);
     }
 
-    let $input = getInput();
+    let $inputs = getInputs();
 
     // Animate icon
     switch (params.type) {
@@ -105,13 +105,44 @@ var setParameters = function(params) {
 
       case 'input':
       case 'prompt':
-        $input.setAttribute('type', params.inputType);
-        $input.value = params.inputValue;
-        $input.setAttribute('placeholder', params.inputPlaceholder);
+
+        var inputHTML = '';
+
+        params.inputs.forEach( function (value, index) {
+
+          var tabIndex = 3 + index;
+
+          if ( params.inputs[index].inputType === 'text' )
+
+            inputHTML +=
+
+              `<fieldset>
+                <label>` + params.inputs[index].inputLabel + `</label>
+                <br><span>` + params.inputs[index].inputDescription + `</span>
+                <input type="` + params.inputs[index].inputType + `" tabIndex="` + tabIndex + `" value="` + params.inputs[index].inputValue + `" placeholder="` + params.inputs[index].inputPlaceholder + `" />
+                <div class="sa-input-error"></div>
+              </fieldset>`;
+
+          else if ( params.inputs[index].inputType === 'radio' )
+
+            inputHTML +=
+
+              `<fieldset>
+                <label>` + params.inputs[index].inputLabel + `</label>
+                <br><span>` + params.inputs[index].inputDescription + `</span>
+                <input type="` + params.inputs[index].inputType + `" name="` + index + `" tabIndex="` + tabIndex + `" value="true" checked="checked" /> ` + params.inputs[index].inputPlaceholder[0] + `
+                <input type="` + params.inputs[index].inputType + `" name="` + index + `" value="false"> ` + params.inputs[index].inputPlaceholder[1] + `
+                <div class="sa-input-error"></div>
+              </fieldset>`;
+
+        });
+
+        modal.querySelector('.sa-inputs').innerHTML = inputHTML;
+
         addClass(modal, 'show-input');
         setTimeout(function () {
-          $input.focus();
-          $input.addEventListener('keyup', swal.resetInputError);
+          $inputs[0].focus();
+          $inputs[0].addEventListener('keyup', swal.resetInputError);
         }, 400);
         break;
     }

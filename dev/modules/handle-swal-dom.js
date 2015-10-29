@@ -37,10 +37,11 @@ var getModal = function() {
 /*
  * Get DOM element of input (in modal)
  */
-var getInput = function() {
+var getInputs = function() {
   var $modal = getModal();
   if ($modal) {
-    return $modal.querySelector('input');
+    var div_list = $modal.querySelectorAll('input');
+    return Array.prototype.slice.call( div_list ); // converts NodeList to Array
   }
 };
 
@@ -99,13 +100,13 @@ var openModal = function(callback) {
  */
 var resetInput = function() {
   var $modal = getModal();
-  var $input = getInput();
+  var $inputs = getInputs();
 
-  removeClass($modal, 'show-input');
+  removeClass($modal, 'show-input');/*
   $input.value = defaultParams.inputValue;
   $input.setAttribute('type', defaultParams.inputType);
   $input.setAttribute('placeholder', defaultParams.inputPlaceholder);
-
+*/
   resetInputError();
 };
 
@@ -139,7 +140,7 @@ export {
   sweetAlertInitialize,
   getModal,
   getOverlay,
-  getInput,
+  getInputs,
   setFocusStyle,
   openModal,
   resetInput,
