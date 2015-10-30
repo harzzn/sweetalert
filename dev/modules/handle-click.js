@@ -85,11 +85,22 @@ var handleConfirm = function(modal, params) {
   var callbackValue = true;
 
   if (hasClass(modal, 'show-input')) {
-    callbackValue = modal.querySelector('input').value;
+    callbackValue = {};
 
-    if (!callbackValue) {
-      callbackValue = '';
-    }
+    Array.prototype.slice.call( modal.querySelectorAll('input') ).forEach( function ( input, index ) {
+
+      if ( input.type === 'radio' ) {
+
+        if (input.checked)
+          callbackValue[ input.getAttribute('name') ] = input.value;
+
+      }
+
+      else
+        callbackValue[ input.getAttribute('name') ] = input.value;
+
+    });
+
   }
 
   params.doneFunction(callbackValue);

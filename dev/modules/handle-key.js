@@ -26,7 +26,7 @@ var handleKeyDown = function(event, params, modal) {
     }
   }
 
-  if (keyCode === 9) {
+  if (keyCode === 9) {/*
     // TAB
     if (btnIndex === -1) {
       // No button focused. Jump to the confirm button.
@@ -45,7 +45,7 @@ var handleKeyDown = function(event, params, modal) {
 
     if (params.confirmButtonColor) {
       setFocusStyle($targetElement, params.confirmButtonColor);
-    }
+    }*/
   } else {
     if (keyCode === 13) {
       if ($targetElement.tagName === 'INPUT') {

@@ -81,8 +81,6 @@ var setParameters = function(params) {
       show($icon);
     }
 
-    let $inputs = getInputs();
-
     // Animate icon
     switch (params.type) {
 
@@ -110,28 +108,26 @@ var setParameters = function(params) {
 
         params.inputs.forEach( function (value, index) {
 
-          var tabIndex = 3 + index;
-
-          if ( params.inputs[index].inputType === 'text' )
+          if ( params.inputs[index].inputType === 'radio' )
 
             inputHTML +=
 
               `<fieldset>
                 <label>` + params.inputs[index].inputLabel + `</label>
                 <br><span>` + params.inputs[index].inputDescription + `</span>
-                <input type="` + params.inputs[index].inputType + `" tabIndex="` + tabIndex + `" value="` + params.inputs[index].inputValue + `" placeholder="` + params.inputs[index].inputPlaceholder + `" />
+                <br><input type="` + params.inputs[index].inputType + `" name="` + params.inputs[index].inputName + `" value="true" checked="checked" /> ` + params.inputs[index].inputPlaceholder[0] + `
+                <br><input type="` + params.inputs[index].inputType + `" name="` + params.inputs[index].inputName + `" value="false"> ` + params.inputs[index].inputPlaceholder[1] + `
                 <div class="sa-input-error"></div>
               </fieldset>`;
 
-          else if ( params.inputs[index].inputType === 'radio' )
+          else
 
             inputHTML +=
 
               `<fieldset>
                 <label>` + params.inputs[index].inputLabel + `</label>
                 <br><span>` + params.inputs[index].inputDescription + `</span>
-                <input type="` + params.inputs[index].inputType + `" name="` + index + `" tabIndex="` + tabIndex + `" value="true" checked="checked" /> ` + params.inputs[index].inputPlaceholder[0] + `
-                <input type="` + params.inputs[index].inputType + `" name="` + index + `" value="false"> ` + params.inputs[index].inputPlaceholder[1] + `
+                <input type="` + params.inputs[index].inputType + `" value="` + params.inputs[index].inputValue + `" placeholder="` + params.inputs[index].inputPlaceholder + `" name="` + params.inputs[index].inputName + `" />
                 <div class="sa-input-error"></div>
               </fieldset>`;
 
@@ -139,11 +135,13 @@ var setParameters = function(params) {
 
         modal.querySelector('.sa-inputs').innerHTML = inputHTML;
 
+        let $inputs = getInputs();
+
         addClass(modal, 'show-input');
         setTimeout(function () {
           $inputs[0].focus();
           $inputs[0].addEventListener('keyup', swal.resetInputError);
-        }, 400);
+        }, 200);
         break;
     }
   }
